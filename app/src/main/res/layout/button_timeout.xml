@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+            android:padding="3dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddTimeout1"
+                android:src="@drawable/add"
+                android:backgroundTint="@android:color/holo_red_dark"
+                app:fabSize="mini"
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:padding="3dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabRemoveTimeout1"
+                android:src="@drawable/remove"
+                android:backgroundTint="@android:color/holo_green_dark"
+                app:fabSize="mini"
+                android:layout_gravity="right"
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:padding="3dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddTimeout2"
+                android:src="@drawable/add"
+                android:backgroundTint="@android:color/holo_red_dark"
+                app:fabSize="mini"
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:padding="3dp"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabRemoveTimeout2"
+                android:src="@drawable/remove"
+                android:backgroundTint="@android:color/holo_green_dark"
+                app:fabSize="mini"
+                android:layout_gravity="right"
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+</LinearLayout>
