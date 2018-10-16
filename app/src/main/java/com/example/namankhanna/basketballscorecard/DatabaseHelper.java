@@ -73,4 +73,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(query, null);
         return cursor;
     }
+
+    public void writePlayers(String table, String name, int num) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PLAYER_NAME, name);
+        contentValues.put(PLAYER_TNUM, num);
+        long res = database.insert(table, null, contentValues);
+        if(res != -1) {
+            Log.d(TAG, "Players written successfully");
+        }
+    }
+
+    public Cursor readPlayers(String table) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = "Select * from " + table;
+        Cursor cursor = database.rawQuery(query, null);
+        return cursor;
+    }
 }
