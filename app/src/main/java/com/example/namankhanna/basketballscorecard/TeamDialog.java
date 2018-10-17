@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +34,9 @@ public class TeamDialog extends AppCompatDialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.getTeamNames(etTeam1.getText().toString(), etTeam2.getText().toString());
+                        if (!TextUtils.isEmpty(etTeam1.getText().toString()) && !TextUtils.isEmpty(etTeam2.getText().toString())) {
+                            listener.getTeamNames(etTeam1.getText().toString(), etTeam2.getText().toString());
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
