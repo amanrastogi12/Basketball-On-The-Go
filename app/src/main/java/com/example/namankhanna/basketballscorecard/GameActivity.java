@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity {
 
-
-    long timeLeft1 = 2400000;
-    long timeLeft2 = 24000;
     TextView tvTeam1, tvTeam2;
     RecyclerView rvPlayers1, rvPlayers2;
     TextView tvScore1, tvScore2;
@@ -24,6 +21,8 @@ public class GameActivity extends AppCompatActivity {
     FloatingActionButton fabPlayTimer1, fabPauseTimer1, fabPlayTimer2, fabPauseTimer2;
     TextView tvTimer1, tvTimer2;
     CountDownTimer timer1, timer2;
+    long timeLeft1 = 2400000, timeLeft2 = 24000;
+    boolean isTimer1Running = false, isTimer2Running = false;
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     PlayerAdapter adapter1, adapter2;
@@ -64,32 +63,45 @@ public class GameActivity extends AppCompatActivity {
         fabPlayTimer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTimer1();
+                if(!isTimer1Running) {
+                    startTimer1();
+                }
             }
         });
 
         fabPauseTimer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer1.cancel();
+                if(isTimer1Running) {
+                    pauseTimer1();
+                }
             }
         });
 
         fabPlayTimer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTimer2();
+                if(!isTimer2Running) {
+                    startTimer2();
+                }
             }
         });
 
         fabPauseTimer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer2.cancel();
+                if(isTimer2Running) {
+                    pauseTimer2();
+                }
             }
         });
 
         readPlayersFromDatabase();
+    }
+
+    private void pauseTimer2() {
+        timer2.cancel();
+        isTimer2Running = false;
     }
 
     private void startTimer2() {
@@ -97,15 +109,24 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onTick(long millis) {
                 timeLeft2 = millis;
-                int sec = (int) (timeLeft2 / 1000) % 60;
-                tvTimer2.setText(String.valueOf(sec));
+                int s = (int) (timeLeft2 / 1000) % 60;
+                String time = String.format("%02d", s);
+                tvTimer2.setText(time);
             }
 
             @Override
             public void onFinish() {
                 tvTimer2.setText("24");
+                timeLeft2 = 24000;
+                isTimer2Running = false;
             }
         }.start();
+        isTimer2Running = true;
+    }
+
+    private void pauseTimer1() {
+        timer1.cancel();
+        isTimer1Running = false;
     }
 
     private void startTimer1() {
@@ -113,21 +134,20 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onTick(long millis) {
                 timeLeft1 = millis;
-                updateCountDownTimer1Text();
+                int s = (int) (timeLeft1 / 1000) % 60;
+                int m = (int) (timeLeft1 / 1000) / 60;
+                String time = String.format("%02d:%02d", m, s);
+                tvTimer1.setText(time);
             }
 
             @Override
             public void onFinish() {
                 tvTimer1.setText("40:00");
+                timeLeft1 = 2400000;
+                isTimer1Running = false;
             }
         }.start();
-    }
-
-    private void updateCountDownTimer1Text() {
-        int s = (int) (timeLeft1 / 1000) % 60;
-        int m = (int) (timeLeft1 / 1000) / 60;
-        String time = String.format("%02d:%02d", m, s);
-        tvTimer1.setText(time);
+        isTimer1Running = true;
     }
 
     private void readPlayersFromDatabase() {
