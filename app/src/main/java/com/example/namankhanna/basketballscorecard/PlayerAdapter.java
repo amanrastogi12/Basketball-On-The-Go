@@ -15,9 +15,19 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     ArrayList<Player> playerArrayList;
     Context context;
 
+    public interface OnPlayerClickListener {
+        void getPlayer(int id, String name);
+    }
+
+    OnPlayerClickListener listener;
+
     public PlayerAdapter(ArrayList<Player> playerArrayList, Context context) {
         this.playerArrayList = playerArrayList;
         this.context = context;
+    }
+
+    public void setOnPlayerClickListener(OnPlayerClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -29,10 +39,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlayerViewHolder holder, int position) {
-        Player player = playerArrayList.get(position);
+    public void onBindViewHolder(@NonNull PlayerViewHolder holder, final int position) {
+        final Player player = playerArrayList.get(position);
         holder.tvPlayer.setText(player.getName());
         holder.tvTNum.setText(String.valueOf(player.gettNum()));
+        holder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) {
+                    listener.getPlayer(position, player.getName());
+                }
+            }
+        });
     }
 
     @Override
@@ -43,11 +61,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public static class PlayerViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvPlayer, tvTNum;
+        View rootView;
 
         public PlayerViewHolder(View itemView) {
             super(itemView);
             tvPlayer = itemView.findViewById(R.id.tvPlayer);
             tvTNum = itemView.findViewById(R.id.tvTNum);
+            rootView = itemView;
         }
     }
 }
