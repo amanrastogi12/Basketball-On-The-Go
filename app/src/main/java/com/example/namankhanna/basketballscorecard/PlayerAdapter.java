@@ -42,7 +42,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void onBindViewHolder(@NonNull PlayerViewHolder holder, final int position) {
         final Player player = playerArrayList.get(position);
         holder.tvPlayer.setText(player.getName());
-        holder.tvTNum.setText(String.valueOf(player.gettNum()));
+        holder.tvTNum.setText(String.valueOf(player.getTNum()));
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

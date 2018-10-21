@@ -2,18 +2,18 @@ package com.example.namankhanna.basketballscorecard;
 
 public class Player {
     String name;
-    int tNum;
+    int TNum;
 
     public Player(String name, int tNum) {
         this.name = name;
-        this.tNum = tNum;
+        this.TNum = tNum;
     }
 
     public String getName() {
         return name;
     }
 
-    public int gettNum() {
-        return tNum;
+    public int getTNum() {
+        return TNum;
     }
 }

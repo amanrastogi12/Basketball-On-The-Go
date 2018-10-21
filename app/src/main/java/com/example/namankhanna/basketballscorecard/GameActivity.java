@@ -10,22 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
-public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPositiveScoreListener {
-
-    public static final String TAG = "GAME_ACTIVITY";
+public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPositiveScoreListener, ScoreCardDialog.OnPositiveCardListener {
 
     TextView tvTeam1, tvTeam2;
     RecyclerView rvPlayers1, rvPlayers2;
     TextView tvScore1, tvScore2;
     String team1, team2;
-    FloatingActionButton fabPlayTimer1, fabPauseTimer1, fabPlayTimer2, fabPauseTimer2;
+    FloatingActionButton fabPlayTimer, fabPauseTimer;
     TextView tvTimer1, tvTimer2;
     CountDownTimer timer1, timer2;
     int foul1 = 0, foul2 = 0;
@@ -49,10 +44,8 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
         rvPlayers2 = findViewById(R.id.rvPlayers2);
         tvScore1 = findViewById(R.id.tvScore1);
         tvScore2 = findViewById(R.id.tvScore2);
-        fabPlayTimer1 = findViewById(R.id.fabPlayTimer1);
-        fabPlayTimer2 = findViewById(R.id.fabPlayTimer2);
-        fabPauseTimer1 = findViewById(R.id.fabPauseTimer1);
-        fabPauseTimer2 = findViewById(R.id.fabPauseTimer2);
+        fabPlayTimer = findViewById(R.id.fabPlayTimer);
+        fabPauseTimer = findViewById(R.id.fabPauseTimer);
         tvTimer1 = findViewById(R.id.tvTimer1);
         tvTimer2 = findViewById(R.id.tvTimer2);
         helper = new DatabaseHelper(this);
@@ -91,37 +84,21 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
         tvTeam1.setText(team1);
         tvTeam2.setText(team2);
 
-        fabPlayTimer1.setOnClickListener(new View.OnClickListener() {
+        fabPlayTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isTimer1Running) {
+                if(!isTimer1Running && !isTimer2Running) {
                     startTimer1();
-                }
-            }
-        });
-
-        fabPauseTimer1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isTimer1Running) {
-                    pauseTimer1();
-                }
-            }
-        });
-
-        fabPlayTimer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!isTimer2Running) {
                     startTimer2();
                 }
             }
         });
 
-        fabPauseTimer2.setOnClickListener(new View.OnClickListener() {
+        fabPauseTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isTimer2Running) {
+                if(isTimer1Running || isTimer2Running) {
+                    pauseTimer1();
                     pauseTimer2();
                 }
             }
@@ -209,7 +186,39 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
             }
         });
 
+        (findViewById(R.id.btnFinishGame)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayScoreCard();
+            }
+        });
+
         readPlayersFromDatabase();
+    }
+
+    private void displayScoreCard() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm")
+                .setTitle("Are you sure you want to finish the game ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        launchScoreCardDialog();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }).create().show();
+    }
+
+    private void launchScoreCardDialog() {
+        ScoreCardDialog cardDialog = new ScoreCardDialog();
+        cardDialog.setDetails(team1, team2, sumArray(score1,10), sumArray(score2, 10),
+                foul1, foul2, timeOut1, timeOut2, players1, players2, score1, score2);
+        cardDialog.show(getSupportFragmentManager(), "SCORE_CARD_DIALOG");
     }
 
     private void displayScoreDialog(int i, int id, String name) {
@@ -225,31 +234,24 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
 
     @Override
     public void getScore(int id, String name, String teamName, int score) {
-        if(isTimer1Running && isTimer2Running) {
-            if(teamName.equals(team1)) {
-                score1[id] += score;
-                if(score1[id] < 0)
-                    score1[id] = 0;
-                int sum = sumArray(score1, 10);
-                tvScore1.setText(String.valueOf(sum));
-                Toast.makeText(this, "Team: "+teamName + " Player: " + name + " Score: " + score1[id], Toast.LENGTH_SHORT).show();
-            }
-            else {
-                score2[id] += score;
-                if(score2[id] < 0)
-                    score2[id] = 0;
-                int sum = sumArray(score2, 10);
-                tvScore2.setText(String.valueOf(sum));
-                Toast.makeText(this, "Team: "+teamName + " Player: " + name + " Score: " + score2[id], Toast.LENGTH_SHORT).show();
-            }
-            timer2.cancel();
-            tvTimer2.setText("24");
-            timeLeft2 = 24000;
-            startTimer2();
+        if(teamName.equals(team1)) {
+            score1[id] += score;
+            if(score1[id] < 0)
+                score1[id] = 0;
+            int sum = sumArray(score1, 10);
+            tvScore1.setText(String.valueOf(sum));
         }
         else {
-            Toast.makeText(this, "Start the timers in order to start the game", Toast.LENGTH_SHORT).show();
+            score2[id] += score;
+            if(score2[id] < 0)
+                score2[id] = 0;
+            int sum = sumArray(score2, 10);
+            tvScore2.setText(String.valueOf(sum));
         }
+        timer2.cancel();
+        tvTimer2.setText("24");
+        timeLeft2 = 24000;
+        startTimer2();
     }
 
     private int sumArray(int[] arr, int n) {
@@ -289,7 +291,7 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
             public void onFinish() {
                 tvTimer2.setText("24");
                 timeLeft2 = 24000;
-                isTimer2Running = false;
+                startTimer2();
             }
         }.start();
         isTimer2Running = true;
@@ -316,6 +318,7 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
                 tvTimer1.setText("40:00");
                 timeLeft1 = 2400000;
                 isTimer1Running = false;
+                displayScoreCard();
             }
         }.start();
         isTimer1Running = true;
@@ -333,6 +336,13 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
             String name = cursor2.getString(cursor2.getColumnIndex("Name"));
             int num = cursor2.getInt(cursor2.getColumnIndex("TNo"));
             players2.add(new Player(name, num));
+        }
+    }
+
+    @Override
+    public void startActivity(boolean flag) {
+        if(flag) {
+            startActivity(new Intent(GameActivity.this, TeamActivity.class));
         }
     }
 }
