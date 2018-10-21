@@ -16,25 +16,27 @@
                 android:id="@+id/fabPlayTimer"
                 android:src="@drawable/play"
                 app:fabSize="mini"
-                android:layout_gravity="right"
+                android:layout_gravity="left"
                 android:padding="3dp"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-    </FrameLayout>
-
-    <FrameLayout
-            android:padding="3dp"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
         <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fabPauseTimer"
                 android:src="@drawable/pause"
                 app:fabSize="mini"
+                android:layout_gravity="center"
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabResetTimer"
+                android:src="@drawable/replay"
+                app:fabSize="mini"
+                android:layout_gravity="right"
                 android:padding="3dp"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"

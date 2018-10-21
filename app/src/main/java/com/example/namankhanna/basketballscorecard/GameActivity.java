@@ -20,8 +20,9 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
     RecyclerView rvPlayers1, rvPlayers2;
     TextView tvScore1, tvScore2;
     String team1, team2;
-    FloatingActionButton fabPlayTimer, fabPauseTimer;
+    FloatingActionButton fabPlayTimer, fabPauseTimer, fabResetTimer;
     TextView tvTimer1, tvTimer2;
+    TextView tvFouls1, tvFouls2, tvTimeOuts1, tvTimeOuts2;
     CountDownTimer timer1, timer2;
     int foul1 = 0, foul2 = 0;
     int timeOut1 = 0, timeOut2 = 0;
@@ -44,8 +45,13 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
         rvPlayers2 = findViewById(R.id.rvPlayers2);
         tvScore1 = findViewById(R.id.tvScore1);
         tvScore2 = findViewById(R.id.tvScore2);
+        tvFouls1 = findViewById(R.id.tvGameFouls1);
+        tvFouls2 = findViewById(R.id.tvGameFouls2);
+        tvTimeOuts1 = findViewById(R.id.tvGameTimeOuts1);
+        tvTimeOuts2 = findViewById(R.id.tvGameTimeOuts2);
         fabPlayTimer = findViewById(R.id.fabPlayTimer);
         fabPauseTimer = findViewById(R.id.fabPauseTimer);
+        fabResetTimer = findViewById(R.id.fabResetTimer);
         tvTimer1 = findViewById(R.id.tvTimer1);
         tvTimer2 = findViewById(R.id.tvTimer2);
         helper = new DatabaseHelper(this);
@@ -104,29 +110,47 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
             }
         });
 
+        fabResetTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer2.cancel();
+                tvTimer2.setText("24");
+                timeLeft2 = 24000;
+                startTimer2();
+            }
+        });
+
         View.OnClickListener incDecListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.fabAddFoul1:  foul1++;
+                    tvFouls1.setText(String.valueOf(foul1));
                     break;
                     case R.id.fabRemoveFoul1: if(foul1 != 0)
                         foul1--;
+                        tvFouls1.setText(String.valueOf(foul1));
                     break;
                     case R.id.fabAddFoul2: foul2++;
+                    tvFouls2.setText(String.valueOf(foul2));
                     break;
                     case R.id.fabRemoveFoul2: if(foul2 != 0)
                         foul2--;
+                        tvFouls2.setText(String.valueOf(foul2));
                     break;
                     case R.id.fabAddTimeout1:  timeOut1++;
+                        tvTimeOuts1.setText(String.valueOf(timeOut1));
                         break;
-                    case R.id.fabRemoveTimeout1: if(foul1 != 0)
+                    case R.id.fabRemoveTimeout1: if(timeOut1 != 0)
                         timeOut1--;
+                        tvTimeOuts1.setText(String.valueOf(timeOut1));
                         break;
                     case R.id.fabAddTimeout2: timeOut2++;
+                        tvTimeOuts2.setText(String.valueOf(timeOut2));
                         break;
-                    case R.id.fabRemoveTimeout2: if(foul2 != 0)
+                    case R.id.fabRemoveTimeout2: if(timeOut2 != 0)
                         timeOut2--;
+                        tvTimeOuts2.setText(String.valueOf(timeOut2));
                         break;
                 }
             }

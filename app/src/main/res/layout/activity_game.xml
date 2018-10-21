@@ -124,6 +124,43 @@
             <include
                     layout="@layout/button_foul" />
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tvGameFouls1"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:typeface="serif"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/list_outline"
+                        android:textColor="@color/colorWhite"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvGameFouls2"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:typeface="serif"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/list_outline"
+                        android:textColor="@color/colorWhite"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
             <TextView
                     android:text="Time Outs"
                     android:textSize="16sp"
@@ -138,6 +175,42 @@
 
             <include
                     layout="@layout/button_timeout" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tvGameTimeOuts1"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:typeface="serif"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/list_outline"
+                        android:textColor="@color/colorWhite"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvGameTimeOuts2"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:typeface="serif"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/list_outline"
+                        android:textColor="@color/colorWhite"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <Button
                     android:id="@+id/btnNewGame"
