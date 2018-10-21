@@ -18,7 +18,7 @@ public class ScoreCardDialog extends AppCompatDialogFragment {
     ScoreCard card;
     ArrayList<Player> players1, players2;
 
-    TextView tvTeam1, tvTeam2, tvScore1, tvScore2, tvFoul1, tvFoul2, tvTimeOut1, tvTimeOut2;
+    TextView tvTeam1, tvTeam2, tvTeam3, tvTeam4, tvScore1, tvScore2, tvFoul1, tvFoul2, tvTimeOut1, tvTimeOut2;
     RecyclerView rvPlayers1,rvPlayers2;
     PlayerAdapter adapter1, adapter2;
 
@@ -36,6 +36,8 @@ public class ScoreCardDialog extends AppCompatDialogFragment {
 
         tvTeam1 = view.findViewById(R.id.tvDialogTeam1);
         tvTeam2 = view.findViewById(R.id.tvDialogTeam2);
+        tvTeam3 = view.findViewById(R.id.tvDialogTeam3);
+        tvTeam4 = view.findViewById(R.id.tvDialogTeam4);
         tvScore1 = view.findViewById(R.id.tvDialogScore1);
         tvScore2 = view.findViewById(R.id.tvDialogScore2);
         tvFoul1 = view.findViewById(R.id.tvFouls1);
@@ -47,12 +49,14 @@ public class ScoreCardDialog extends AppCompatDialogFragment {
 
         tvTeam1.setText(card.getTeam1());
         tvTeam2.setText(card.getTeam2());
+        tvTeam3.setText(card.getTeam1());
+        tvTeam4.setText(card.getTeam2());
         tvScore1.setText(String.valueOf(card.getTotalScore1()));
         tvScore2.setText(String.valueOf(card.getTotalScore2()));
-        tvFoul1.setText("Fouls of " + card.getTeam1() + " : "+ String.valueOf(card.getFouls1()));
-        tvFoul2.setText("Fouls of " + card.getTeam2() + " : "+ String.valueOf(card.getFouls2()));
-        tvTimeOut1.setText("TimeOuts of " + card.getTeam1() + " : "+ String.valueOf(card.getTimeOuts1()));
-        tvTimeOut2.setText("TimeOuts of " + card.getTeam2() + " : "+ String.valueOf(card.getTimeOuts2()));
+        tvFoul1.setText("Fouls: " + String.valueOf(card.getFouls1()));
+        tvFoul2.setText("Fouls: " + String.valueOf(card.getFouls2()));
+        tvTimeOut1.setText("TimeOuts: " + String.valueOf(card.getTimeOuts1()));
+        tvTimeOut2.setText("TimeOuts: " + String.valueOf(card.getTimeOuts2()));
         rvPlayers1.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvPlayers2.setLayoutManager(new LinearLayoutManager(getActivity()));
 

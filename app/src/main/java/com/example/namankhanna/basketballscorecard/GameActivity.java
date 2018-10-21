@@ -12,8 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPositiveScoreListener {
@@ -215,29 +215,26 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
         (findViewById(R.id.btnFinishGame)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayScoreCard();
+                new AlertDialog.Builder(GameActivity.this)
+                        .setTitle("Confirm")
+                        .setMessage("Are you sure you want to finish the game ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                launchScoreCardDialog();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .create().show();
             }
         });
 
         readPlayersFromDatabase();
-    }
-
-    private void displayScoreCard() {
-        new AlertDialog.Builder(this)
-                .setTitle("Confirm")
-                .setTitle("Are you sure you want to finish the game ?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        launchScoreCardDialog();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                }).create().show();
     }
 
     private void launchScoreCardDialog() {
@@ -273,24 +270,29 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
 
     @Override
     public void getScore(int id, String name, String teamName, int score) {
-        if(teamName.equals(team1)) {
-            score1[id] += score;
-            if(score1[id] < 0)
-                score1[id] = 0;
-            int sum = sumArray(score1, 10);
-            tvScore1.setText(String.valueOf(sum));
+        if(isTimer1Running && isTimer2Running) {
+            if(teamName.equals(team1)) {
+                score1[id] += score;
+                if(score1[id] < 0)
+                    score1[id] = 0;
+                int sum = sumArray(score1, 10);
+                tvScore1.setText(String.valueOf(sum));
+            }
+            else {
+                score2[id] += score;
+                if(score2[id] < 0)
+                    score2[id] = 0;
+                int sum = sumArray(score2, 10);
+                tvScore2.setText(String.valueOf(sum));
+            }
+            pauseTimer1();
+            pauseTimer2();
+            tvTimer2.setText("24");
+            timeLeft2 = 24000;
         }
         else {
-            score2[id] += score;
-            if(score2[id] < 0)
-                score2[id] = 0;
-            int sum = sumArray(score2, 10);
-            tvScore2.setText(String.valueOf(sum));
+            Toast.makeText(this, "Timers are not started", Toast.LENGTH_SHORT).show();
         }
-        pauseTimer1();
-        pauseTimer2();
-        tvTimer2.setText("24");
-        timeLeft2 = 24000;
     }
 
     private int sumArray(int[] arr, int n) {
@@ -357,7 +359,7 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
                 tvTimer1.setText("40:00");
                 timeLeft1 = 2400000;
                 isTimer1Running = false;
-                displayScoreCard();
+                launchScoreCardDialog();
             }
         }.start();
         isTimer1Running = true;

@@ -1,174 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:layout_height="match_parent">
 
     <LinearLayout
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:background="@color/colorPrimary">
+
+        <LinearLayout
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tvDialogTeam1"
+                    android:hint="Team 1"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            <TextView
+                    android:id="@+id/tvDialogTeam2"
+                    android:hint="Team 2"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tvDialogScore1"
+                    android:hint="0"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            <TextView
+                    android:id="@+id/tvDialogScore2"
+                    android:hint="0"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tvFouls1"
+                    android:hint="0"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            <TextView
+                    android:id="@+id/tvFouls2"
+                    android:hint="0"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:padding="3dp"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tvTimeOut1"
+                    android:hint="0"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            <TextView
+                    android:id="@+id/tvTimeOut2"
+                    android:hint="0"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    android:textColor="@color/colorWhite"
+                    android:padding="3dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+        </LinearLayout>
 
         <TextView
-                android:id="@+id/tvDialogTeam1"
+                android:id="@+id/tvDialogTeam3"
                 android:hint="Team 1"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:typeface="serif"
                 android:textColor="@color/colorWhite"
                 android:padding="3dp"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:id="@+id/tvDialogScore1"
-                android:hint="0"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:typeface="serif"
-                android:background="@drawable/list_outline"
-                android:textColor="@color/colorWhite"
-                android:padding="3dp"
-                android:layout_margin="3dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvDialogPlayers1"
                 android:padding="3dp"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
-
-    <FrameLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:layout_margin="3dp">
-
-            <TextView
-                    android:id="@+id/tvFouls1"
-                    android:hint="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:typeface="serif"
-                    android:textColor="@color/colorWhite"
-                    android:padding="3dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
-
-            <TextView
-                    android:id="@+id/tvFouls2"
-                    android:hint="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:typeface="serif"
-                    android:textColor="@color/colorWhite"
-                    android:padding="3dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
-
-            <TextView
-                    android:id="@+id/tvTimeOut1"
-                    android:hint="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:typeface="serif"
-                    android:textColor="@color/colorWhite"
-                    android:padding="3dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
-
-            <TextView
-                    android:id="@+id/tvTimeOut2"
-                    android:hint="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:typeface="serif"
-                    android:textColor="@color/colorWhite"
-                    android:padding="3dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-    <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
         <TextView
-                android:id="@+id/tvDialogTeam2"
+                android:id="@+id/tvDialogTeam4"
                 android:hint="Team 2"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:typeface="serif"
                 android:textColor="@color/colorWhite"
                 android:padding="3dp"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:id="@+id/tvDialogScore2"
-                android:hint="0"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:typeface="serif"
-                android:background="@drawable/list_outline"
-                android:textColor="@color/colorWhite"
-                android:padding="3dp"
-                android:layout_margin="3dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvDialogPlayers2"
                 android:padding="3dp"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
