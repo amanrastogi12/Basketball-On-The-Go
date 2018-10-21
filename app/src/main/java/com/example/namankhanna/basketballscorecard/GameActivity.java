@@ -12,9 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPositiveScoreListener, ScoreCardDialog.OnPositiveCardListener {
+public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPositiveScoreListener {
 
     TextView tvTeam1, tvTeam2;
     RecyclerView rvPlayers1, rvPlayers2;
@@ -239,10 +241,23 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
     }
 
     private void launchScoreCardDialog() {
-        ScoreCardDialog cardDialog = new ScoreCardDialog();
-        cardDialog.setDetails(team1, team2, sumArray(score1,10), sumArray(score2, 10),
-                foul1, foul2, timeOut1, timeOut2, players1, players2, score1, score2);
-        cardDialog.show(getSupportFragmentManager(), "SCORE_CARD_DIALOG");
+        updatePlayersList(players1, score1);
+        updatePlayersList(players2, score2);
+        ScoreCard card = new ScoreCard(team1, team2, sumArray(score1, 10), sumArray(score2, 10), foul1, foul2, timeOut1, timeOut2);
+        Intent intent = new Intent(GameActivity.this, TeamActivity.class);
+        intent.putExtra("SCORE_CARD", card);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("PLAYERS1", players1);
+        bundle.putSerializable("PLAYERS2", players2);
+        intent.putExtra("BUNDLE", bundle);
+        startActivity(intent);
+    }
+
+    private void updatePlayersList(ArrayList<Player> players, int[] score) {
+        for(int i = 0 ; i < players.size() ; i++) {
+            Player player = players.get(i);
+            players.set(i, new Player(player.getName(), score[i]));
+        }
     }
 
     private void displayScoreDialog(int i, int id, String name) {
@@ -272,10 +287,10 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
             int sum = sumArray(score2, 10);
             tvScore2.setText(String.valueOf(sum));
         }
-        timer2.cancel();
+        pauseTimer1();
+        pauseTimer2();
         tvTimer2.setText("24");
         timeLeft2 = 24000;
-        startTimer2();
     }
 
     private int sumArray(int[] arr, int n) {
@@ -360,13 +375,6 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
             String name = cursor2.getString(cursor2.getColumnIndex("Name"));
             int num = cursor2.getInt(cursor2.getColumnIndex("TNo"));
             players2.add(new Player(name, num));
-        }
-    }
-
-    @Override
-    public void startActivity(boolean flag) {
-        if(flag) {
-            startActivity(new Intent(GameActivity.this, TeamActivity.class));
         }
     }
 }

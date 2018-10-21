@@ -1,6 +1,8 @@
 package com.example.namankhanna.basketballscorecard;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     String name;
     int TNum;
 

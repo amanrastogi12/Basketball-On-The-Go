@@ -30,6 +30,8 @@ public class TeamActivity extends AppCompatActivity implements TeamDialog.OnPosi
         helper = new DatabaseHelper(this);
         adapter = new TeamAdapter(teamArrayList, this);
 
+        checkScoreCardDialog();
+
         rvListTeams.setLayoutManager(new LinearLayoutManager(this));
         rvListTeams.setAdapter(adapter);
 
@@ -51,6 +53,19 @@ public class TeamActivity extends AppCompatActivity implements TeamDialog.OnPosi
         });
 
         readTeamsFromDatabase();
+    }
+
+    private void checkScoreCardDialog() {
+        ScoreCard card = (ScoreCard) getIntent().getSerializableExtra("SCORE_CARD");
+        Bundle bundle = getIntent().getBundleExtra("BUNDLE");
+        if(card != null && bundle != null) {
+            ArrayList<Player> players1 = (ArrayList<Player>) bundle.getSerializable("PLAYERS1");
+            ArrayList<Player> players2 = (ArrayList<Player>) bundle.getSerializable("PLAYERS2");
+            ScoreCardDialog cardDialog = new ScoreCardDialog();
+            cardDialog.setDetails(card, players1, players2);
+            cardDialog.show(getSupportFragmentManager(), "SCORE_CARD_DIALOG");
+        }
+
     }
 
     private void readTeamsFromDatabase() {

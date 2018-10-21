@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
     <LinearLayout
@@ -59,7 +59,7 @@
 
         <LinearLayout
                 android:orientation="vertical"
-                android:layout_gravity="bottom"
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
@@ -68,7 +68,7 @@
             <TextView
                     android:id="@+id/tvFouls1"
                     android:hint="0"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:typeface="serif"
@@ -82,7 +82,7 @@
             <TextView
                     android:id="@+id/tvFouls2"
                     android:hint="0"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:typeface="serif"
@@ -96,7 +96,7 @@
             <TextView
                     android:id="@+id/tvTimeOut1"
                     android:hint="0"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:typeface="serif"
@@ -110,7 +110,7 @@
             <TextView
                     android:id="@+id/tvTimeOut2"
                     android:hint="0"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:typeface="serif"
