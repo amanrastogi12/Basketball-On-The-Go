@@ -80,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(PLAYER_NAME, name);
         contentValues.put(PLAYER_TNUM, num);
+        table = table.replaceAll("\\s", "");
         long res = database.insert(table, null, contentValues);
         if(res != -1) {
             Log.d(TAG, "Players written successfully");
@@ -88,6 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor readPlayers(String table) {
         SQLiteDatabase database = this.getReadableDatabase();
+        table = table.replaceAll("\\s", "");
         String query = "Select * from " + table;
         Cursor cursor = database.rawQuery(query, null);
         return cursor;
