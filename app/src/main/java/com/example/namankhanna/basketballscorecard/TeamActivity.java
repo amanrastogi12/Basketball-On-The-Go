@@ -84,6 +84,8 @@ public class TeamActivity extends AppCompatActivity implements TeamDialog.OnPosi
 
     @Override
     public void getTeamNames(String team1, String team2) {
+        team1 = team1.trim();
+        team2 = team2.trim();
         helper.writeTeams(team1, team2);
         teamArrayList.add(new Team(team1, team2));
         adapter.notifyDataSetChanged();

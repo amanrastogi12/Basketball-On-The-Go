@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "DATABASE_HELPER";
-
     public static final String DATABASE_NAME = "Teams.db";
     public static final String TABLE_TEAM = "Team";
     public static final String ID = "Id";
@@ -55,11 +54,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void createPlayersTable(String team1, String team2) {
         SQLiteDatabase database = this.getWritableDatabase();
-        String query1 = "Create table " + team1 + "(" +
+        team1 = team1.replaceAll("\\s", "");
+        team2 = team2.replaceAll("\\s", "");
+        String query1 = "Create table if not exists " + team1 + "(" +
                 ID + " Integer Primary Key Autoincrement," +
                 PLAYER_NAME + " Text," +
                 PLAYER_TNUM + " Integer)";
-        String query2 = "Create table " + team2 + "(" +
+        String query2 = "Create table if not exists " + team2 + "(" +
                 ID + " Integer Primary Key Autoincrement," +
                 PLAYER_NAME + " Text," +
                 PLAYER_TNUM + " Integer)";

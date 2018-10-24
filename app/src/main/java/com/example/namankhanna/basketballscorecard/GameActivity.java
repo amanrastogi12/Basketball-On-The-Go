@@ -270,29 +270,24 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
 
     @Override
     public void getScore(int id, String name, String teamName, int score) {
-        if(isTimer1Running && isTimer2Running) {
-            if(teamName.equals(team1)) {
-                score1[id] += score;
-                if(score1[id] < 0)
-                    score1[id] = 0;
-                int sum = sumArray(score1, 10);
-                tvScore1.setText(String.valueOf(sum));
-            }
-            else {
-                score2[id] += score;
-                if(score2[id] < 0)
-                    score2[id] = 0;
-                int sum = sumArray(score2, 10);
-                tvScore2.setText(String.valueOf(sum));
-            }
-            pauseTimer1();
-            pauseTimer2();
-            tvTimer2.setText("24");
-            timeLeft2 = 24000;
+        if(teamName.equals(team1)) {
+            score1[id] += score;
+            if(score1[id] < 0)
+                score1[id] = 0;
+            int sum = sumArray(score1, 10);
+            tvScore1.setText(String.valueOf(sum));
         }
         else {
-            Toast.makeText(this, "Timers are not started", Toast.LENGTH_SHORT).show();
+            score2[id] += score;
+            if(score2[id] < 0)
+                score2[id] = 0;
+            int sum = sumArray(score2, 10);
+            tvScore2.setText(String.valueOf(sum));
         }
+        pauseTimer1();
+        pauseTimer2();
+        tvTimer2.setText("24");
+        timeLeft2 = 24000;
     }
 
     private int sumArray(int[] arr, int n) {
