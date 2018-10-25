@@ -22,7 +22,7 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
     RecyclerView rvPlayers1, rvPlayers2;
     TextView tvScore1, tvScore2;
     String team1, team2;
-    FloatingActionButton fabPlayTimer, fabPauseTimer, fabResetTimer;
+    FloatingActionButton fabPlayTimer, fabPauseTimer, fabResetTimer, fabReset;
     TextView tvTimer1, tvTimer2;
     TextView tvFouls1, tvFouls2, tvTimeOuts1, tvTimeOuts2;
     CountDownTimer timer1, timer2;
@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
         fabPlayTimer = findViewById(R.id.fabPlayTimer);
         fabPauseTimer = findViewById(R.id.fabPauseTimer);
         fabResetTimer = findViewById(R.id.fabResetTimer);
+        fabReset = findViewById(R.id.fabReset);
         tvTimer1 = findViewById(R.id.tvTimer1);
         tvTimer2 = findViewById(R.id.tvTimer2);
         helper = new DatabaseHelper(this);
@@ -115,9 +116,17 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
         fabResetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer2.cancel();
-                tvTimer2.setText("24");
+                pauseTimer2();
                 timeLeft2 = 24000;
+                startTimer2();
+            }
+        });
+
+        fabReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pauseTimer2();
+                timeLeft2 = 14000;
                 startTimer2();
             }
         });
@@ -200,6 +209,14 @@ public class GameActivity extends AppCompatActivity implements ScoreDialog.OnPos
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 tvScore1.setText("0");
                                 tvScore2.setText("0");
+                                tvFouls1.setText("0");
+                                tvFouls2.setText("0");
+                                tvTimeOuts1.setText("0");
+                                tvTimeOuts2.setText("0");
+                                foul1 = 0;
+                                foul2 = 0;
+                                timeOut1 = 0;
+                                timeOut2 = 0;
                                 resetTimers();
                             }
                         })
